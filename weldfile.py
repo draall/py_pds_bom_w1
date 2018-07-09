@@ -1,6 +1,11 @@
 import re
 from pandas import Series, DataFrame
 
+import os
+for file in os.listdir("d:\\w1"):
+    if file.endswith(".w1"):
+        print(os.path.join("d:\\w1", file))
+
 
 listLineID = []
 listPipingSpec = []
