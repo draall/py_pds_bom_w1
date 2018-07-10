@@ -44,11 +44,12 @@ for tagerFile in targetFiles:
                 listCat.append(wCat)
                 listSize.append(wSize)
                 listType.append(wType)
+                listTempQtyChk.append(wCat+wPipingSpec+wSize+wType+wLineID)
 
 
-data = {'PipeID': listLineID,
+data = {'TempQtyChk': listTempQtyChk,
+        'PipeID': listLineID,
         'PipingSpec': listPipingSpec,
-        'WeldNo': listWeldNo,
         'WeldCat': listCat,
         'WeldSize': listSize,
         'WeldType': listType}
