@@ -56,13 +56,3 @@ data = {'TempQtyChk': listTempQtyChk,
 weldDF = DataFrame(data)
 
 weldDF['Qty'] = weldDF.groupby('TempQtyChk')['TempQtyChk'].transform('count')
-            
-
-
-
-
-
-            
-        
-
-
