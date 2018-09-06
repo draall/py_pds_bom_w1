@@ -17,11 +17,11 @@ for file in os.listdir("d:\\w1"):
     lenFileSplit = len(tempFileSpilt)
     tempFileEx = tempFileSpilt[lenFileSplit-1]
     
-    if bool(re.match('^w[0-9][0-9]?$', tempFileEx)):
+    if bool(re.match('^w\d{1,2}$', tempFileEx)):
         targetFiles.append(os.path.join("d:\\w1", file))
 
-for tagerFile in targetFiles:
-    with open(tagerFile, 'r') as file:
+for targetFile in targetFiles:
+    with open(targetFile, 'r') as file:
         lines = file.readlines()
         line = ''
 
@@ -32,7 +32,7 @@ for tagerFile in targetFiles:
             if line.find('PIPING SPEC',0,13)>=0:
                 wPipingSpec = line.split(':-')[1].strip()
 
-            if bool(re.match('^[0-9][0-9]?$', line[0:5].strip())):
+            if bool(re.match('^\d{1,2}$', line[0:5].strip())):
                 wNo = line[2:4].strip()
                 wCat = line[19:22].strip()
                 wSize = line[25:32].strip()
@@ -53,6 +53,4 @@ data = {'TempQtyChk': listTempQtyChk,
         'WeldCat': listCat,
         'WeldSize': listSize,
         'WeldType': listType}
-weldDF = DataFrame(data)
-
-weldDF['Qty'] = weldDF.groupby('TempQtyChk')['TempQtyChk'].transform('count')
+weldDF = DataFrame(data).groupby(['PipeID','PipingSpec','WeldCat','WeldSize','WeldType']).agg({'TempQtyChk':'count'}).rename(columns={'TempQtyChk':'WeldPoint'}).reset_index()
